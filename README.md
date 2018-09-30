@@ -78,10 +78,10 @@ sprint_report_detail <- get_sprint_report_detail(sprint_id = <x>)
 References
 ----------
 
-See the Atlassian (Jira
-Cloud)\[<a href="https://developer.atlassian.com/cloud/jira/platform/rest" class="uri">https://developer.atlassian.com/cloud/jira/platform/rest</a>\]
-and (Jira Software
-Cloud)\[<a href="https://docs.atlassian.com/jira-software/REST/cloud" class="uri">https://docs.atlassian.com/jira-software/REST/cloud</a>\]
+See the Atlassian [Jira
+Cloud](https://developer.atlassian.com/cloud/jira/platform/rest) and
+[Jira Software
+Cloud](https://docs.atlassian.com/jira-software/REST/cloud)
 docuementation for more information.
 
 Contributing
