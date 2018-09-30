@@ -257,7 +257,7 @@ get_issue <- function(issue_key, full_response = FALSE) {
       key = issue_key,
       story_points = purrr::pluck(resp, "customfield_10013",
                                   .default = NA_integer_),
-      epic_name = purrr::pluck(resp, "customfield_10011",
+      epic_name = purrr::pluck(resp, "epic", "name",
                                .default = NA_character_),
       program = purrr::pluck(resp, "customfield_10500", "value",
                              .default = NA_character_)
@@ -312,7 +312,7 @@ parse_issue <- function(response) {
     key = "DUMMY",
     story_points = purrr::pluck(response, "customfield_10013",
                                 .default = NA_integer_),
-    epic_name = purrr::pluck(response, "customfield_10011",
+    epic_name = purrr::pluck(response, "epic", "name",
                              .default = NA_character_),
     program = purrr::pluck(response, "customfield_10500", "value",
                            .default = NA_character_)
