@@ -4,19 +4,32 @@
 \alias{get_issue}
 \title{Get details on a specific issue}
 \usage{
-get_issue(issue_key, full_response = FALSE)
+get_issue(issue_key, fields = NULL, full_response = FALSE)
 }
 \arguments{
 \item{issue_key}{Key of issue to retrieve}
 
+\item{fields}{Comma seperated string of field IDs to retrieve}
+
 \item{full_response}{Return raw list of fields}
 }
 \value{
-dataframe
+A tibble if neither \code{fields} nor \code{full_response} are specified, otherwise a list
 }
 \description{
-Using an issue_key, get the full details on an issue.
+Using an issue_key, get the full details on an issue. Defaults to returning a
+minimal set of fields as a dataframe, but may also be used to retrieve any
+or al available fields.
 }
 \examples{
-NULL
+\dontrun{
+# basic details on an issue as tibble
+get_issue("XXX-1234")
+
+# a custom field set as list
+get_issue("XXX-1234", fields = 'status,resolution')
+
+# all available fields as list
+get_issue("XXX-1234", full_response = TRUE)
+}
 }

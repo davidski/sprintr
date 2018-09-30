@@ -19,6 +19,7 @@ jira_token <- function() {
 #' to a higher level function for presentation.
 #'
 #' @param path API endpoint to retrieve
+#' @param query Named list of parameters to use as the URL query
 #'
 #' @return A jira_api object
 #' @export
@@ -28,8 +29,8 @@ jira_token <- function() {
 #'
 #' @examples
 #' NULL
-jira_api <- function(path) {
-  url <- httr::modify_url(jira_url(), path = path)
+jira_api <- function(path, query = NULL) {
+  url <- httr::modify_url(jira_url(), path = path, query = query)
   resp <- httr::GET(url, httr::accept_json(),
                     httr::authenticate(jira_username(), jira_token()))
   if (httr::http_type(resp) != "application/json") {
@@ -172,6 +173,27 @@ get_board_details <- function(board_id) {
     purrr::pluck("content") %>% tibble::as.tibble()
 }
 
+#' Get detailed information on a particular sprint
+#'
+#' Given a particular sprint ID, retrieve the descriptive information about
+#' that sprint.
+#'
+#' @param sprint_id ID of the sprint to retrieve
+#'
+#' @return A tibble
+#' @export
+#'
+#' @importFrom glue glue
+#' @importFrom purrr pluck
+#' @importFrom tibble tibble
+#'
+#' @examples
+#' NULL
+get_sprint <- function(sprint_id) {
+  jira_api(glue::glue("/rest/agile/1.0/sprint/{sprint_id}")) %>%
+    purrr::pluck("content") %>% as.tibble()
+}
+
 #' Get sprints associated with a board
 #'
 #' Return all of the sprints associated with a specific board. As a project
@@ -189,13 +211,13 @@ get_board_details <- function(board_id) {
 #'
 #' @examples
 #' NULL
-get_sprints <- function(board_id) {
+get_all_sprints <- function(board_id) {
   start_at <- 0
   resp <- jira_api(glue::glue("/rest/agile/1.0/board/{board_id}/sprint?",
                               "startAt={start_at}&maxResults=50"))
   resp_values <- resp %>% purrr::pluck("content", "values")
   #browser()
-  while (resp$content$isLast == FALSE) {
+  while (!is.null(resp$content$isLast) && resp$content$isLast == FALSE) {
     start_at <- start_at + 50
     resp <- jira_api(glue::glue("/rest/agile/1.0/board/{board_id}/sprint?",
                                 "startAt={start_at}&maxResults=50"))
@@ -239,20 +261,33 @@ get_sprint_report <- function(sprint_id) {
 
 #' Get details on a specific issue
 #'
-#' Using an issue_key, get the full details on an issue.
+#' Using an issue_key, get the full details on an issue. Defaults to returning a
+#' minimal set of fields as a dataframe, but may also be used to retrieve any
+#' or al available fields.
 #'
 #' @param issue_key Key of issue to retrieve
+#' @param fields Comma seperated string of field IDs to retrieve
 #' @param full_response Return raw list of fields
 #'
-#' @return dataframe
+#' @return A tibble if neither `fields` nor `full_response` are specified, otherwise a list
 #' @export
 #'
 #' @examples
-#' NULL
-get_issue <- function(issue_key, full_response = FALSE) {
-  resp <- jira_api(glue::glue("/rest/agile/1.0/issue/{issue_key}")) %>%
+#' \dontrun{
+#' # basic details on an issue as tibble
+#' get_issue("XXX-1234")
+#'
+#' # a custom field set as list
+#' get_issue("XXX-1234", fields = 'status,resolution')
+#'
+#' # all available fields as list
+#' get_issue("XXX-1234", full_response = TRUE)
+#' }
+get_issue <- function(issue_key, fields = NULL, full_response = FALSE) {
+  resp <- jira_api(glue::glue("/rest/agile/1.0/issue/{issue_key}"),
+                   query = list(fields = fields)) %>%
     purrr::pluck("content", "fields")
-  if (!full_response) {
+  if (is.null(fields) && !full_response) {
     tibble::tibble(
       key = issue_key,
       story_points = purrr::pluck(resp, "customfield_10013",

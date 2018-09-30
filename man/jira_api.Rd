@@ -4,10 +4,12 @@
 \alias{jira_api}
 \title{Execute a GET request against the Jira API}
 \usage{
-jira_api(path)
+jira_api(path, query = NULL)
 }
 \arguments{
 \item{path}{API endpoint to retrieve}
+
+\item{query}{Named list of parameters to use as the URL query}
 }
 \value{
 A jira_api object
