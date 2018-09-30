@@ -2,7 +2,7 @@
 % Please edit documentation in R/jira_api.R
 \name{get_fields}
 \alias{get_fields}
-\title{Title}
+\title{Get all configured fields in a Jira instance}
 \usage{
 get_fields()
 }
@@ -10,7 +10,9 @@ get_fields()
 dataframe
 }
 \description{
-Title
+Jira contains a large number of both system-supplied and user-configurable
+fields. This function fetches the full list of available fields and
+their metadata.
 }
 \examples{
 NULL

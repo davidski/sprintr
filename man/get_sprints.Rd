@@ -2,18 +2,20 @@
 % Please edit documentation in R/jira_api.R
 \name{get_sprints}
 \alias{get_sprints}
-\title{Title}
+\title{Get sprints associated with a board}
 \usage{
 get_sprints(board_id)
 }
 \arguments{
-\item{board_id}{ID of sprint board to retrieve}
+\item{board_id}{ID of the origin board to retrieve sprints}
 }
 \value{
 dataframe
 }
 \description{
-Title
+Return all of the sprints associated with a specific board. As a project
+may have multiple boards, in order to retrieve all sprints in a given
+project the user must query all boards and combine the results.
 }
 \examples{
 NULL

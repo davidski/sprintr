@@ -1,10 +1,14 @@
 Package: sprintr
-Title: What the Package Does (one line, title case)
+Title: Light weight interface to the Atlassian Jira API
 Version: 0.0.0.9000
 Authors@R: c(
     person("David", "Severski", email = "davidski@deadheaven.com", role = c("cre", "aut"), comment = "https://orcid.org/0000-0001-7867-0459"),
     person("Susana", "Quartin", email = "susanaquartin@gmail.com", role = c("ctb")))
-Description: What the package does (one paragraph).
+Description: `sprintr` provides a minimal interface to the Jira and Jira 
+    Software APIs. Targetting scrum and kanban boards, sprintr allows pulling 
+    read-only information from Jira, enabling metrics to be retrieved and 
+    processed in R. This includes analyzing issues, sprint velocity, and 
+    other common agile metrics.
 Depends: R (>= 3.5.0)
 License: MIT + file LICENSE
 Encoding: UTF-8

@@ -2,7 +2,7 @@
 % Please edit documentation in R/jira_api.R
 \name{parse_issue}
 \alias{parse_issue}
-\title{Title}
+\title{Parse an issue.}
 \usage{
 parse_issue(response)
 }
@@ -13,7 +13,7 @@ parse_issue(response)
 dataframe
 }
 \description{
-Title
+EXPERIMENTAL: Parse an issue reponse into a dataframe.
 }
 \examples{
 NULL

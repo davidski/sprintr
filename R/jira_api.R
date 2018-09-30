@@ -13,7 +13,10 @@ jira_token <- function() {
   if (token == "") stop("Jira API key not found.", .call = FALSE) else token
 }
 
-#' Title
+#' Execute a GET request against the Jira API
+#'
+#' Calls bare API end points and returns a wrapped `httr` response object
+#' to a higher level function for presentation.
 #'
 #' @param path API endpoint to retrieve
 #'
@@ -45,7 +48,10 @@ jira_api <- function(path) {
   )
 }
 
-#' Title
+#' Execute a POST request against the Jira API
+#'
+#' Calls bare API end points and returns a wrapped `httr` response object
+#' to a higher level function for presentation.
 #'
 #' @param path API endpoint to retrieve
 #' @param post_data List of data to post to API
@@ -84,7 +90,11 @@ print.jira_api <- function(x, ...) {
   invisible(x)
 }
 
-#' Title
+#' Get all configured fields in a Jira instance
+#'
+#' Jira contains a large number of both system-supplied and user-configurable
+#' fields. This function fetches the full list of available fields and
+#' their metadata.
 #'
 #' @return dataframe
 #' @export
@@ -101,7 +111,10 @@ get_fields <- function() {
                    purrr::pluck(all_fields, "schema"))
 }
 
-#' Title
+#' Get all available boards
+#'
+#' Fetches all visible boards in the Jira instance and returns them, and their
+#' metadata, as a dataframe.
 #'
 #' @return dataframe
 #' @export
@@ -139,7 +152,9 @@ get_boards <- function() {
   all_boards
 }
 
-#' Title
+#' Get details on a specific board
+#'
+#' Fetches detailed information on a specific board.
 #'
 #' @param board_id ID of sprint board to retrieve
 #'
@@ -157,9 +172,13 @@ get_board_details <- function(board_id) {
     purrr::pluck("content") %>% tibble::as.tibble()
 }
 
-#' Title
+#' Get sprints associated with a board
 #'
-#' @param board_id ID of sprint board to retrieve
+#' Return all of the sprints associated with a specific board. As a project
+#' may have multiple boards, in order to retrieve all sprints in a given
+#' project the user must query all boards and combine the results.
+#'
+#' @param board_id ID of the origin board to retrieve sprints
 #'
 #' @return dataframe
 #' @export
@@ -187,7 +206,12 @@ get_sprints <- function(board_id) {
   resp_values
 }
 
-#' Title
+#' Get sprint report data
+#'
+#' The Jira sprint report is a useful snapshot of issues completed, not completed,
+#' and changes to sprint scope. While the web UI does not provide a way to
+#' export this data in a workable format, the API can be used to get at the
+#' raw data.
 #'
 #' @param sprint_id ID of sprint to retrieve
 #'
@@ -213,7 +237,9 @@ get_sprint_report <- function(sprint_id) {
   purrr::splice(clean_report, list(points_sum = point_sums))
 }
 
-#' Title
+#' Get details on a specific issue
+#'
+#' Using an issue_key, get the full details on an issue.
 #'
 #' @param issue_key Key of issue to retrieve
 #' @param full_response Return raw list of fields
@@ -241,7 +267,9 @@ get_issue <- function(issue_key, full_response = FALSE) {
   }
 }
 
-#' Title
+#' Get all backloged issues.
+#'
+#' Retrieves all the issues that are on a board's backlog.
 #'
 #' @param board_id ID of board to retrieve
 #'
@@ -266,7 +294,9 @@ get_issues_on_backlog <- function(board_id) {
   resp_values
 }
 
-#' Title
+#' Parse an issue.
+#'
+#' EXPERIMENTAL: Parse an issue reponse into a dataframe.
 #'
 #' @param response HTTR response
 #'
@@ -289,7 +319,11 @@ parse_issue <- function(response) {
   )
 }
 
-#' Title
+#' Get detailed sprint report information.
+#'
+#' Get the issues associated with each of the major categories in a
+#' Jira sprint report. Currently retrieves all fields of all issues, which
+#' can be slow.
 #'
 #' @param sprint_id ID of the sprint to pull issue-level details on
 #'

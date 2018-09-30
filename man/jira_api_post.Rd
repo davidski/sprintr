@@ -2,7 +2,7 @@
 % Please edit documentation in R/jira_api.R
 \name{jira_api_post}
 \alias{jira_api_post}
-\title{Title}
+\title{Execute a POST request against the Jira API}
 \usage{
 jira_api_post(path, post_data)
 }
@@ -15,7 +15,8 @@ jira_api_post(path, post_data)
 A jira_api object
 }
 \description{
-Title
+Calls bare API end points and returns a wrapped \code{httr} response object
+to a higher level function for presentation.
 }
 \examples{
 NULL

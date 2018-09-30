@@ -2,7 +2,7 @@
 % Please edit documentation in R/jira_api.R
 \name{get_boards}
 \alias{get_boards}
-\title{Title}
+\title{Get all available boards}
 \usage{
 get_boards()
 }
@@ -10,7 +10,8 @@ get_boards()
 dataframe
 }
 \description{
-Title
+Fetches all visible boards in the Jira instance and returns them, and their
+metadata, as a dataframe.
 }
 \examples{
 NULL

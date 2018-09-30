@@ -2,7 +2,7 @@
 % Please edit documentation in R/jira_api.R
 \name{get_issues_on_backlog}
 \alias{get_issues_on_backlog}
-\title{Title}
+\title{Get all backloged issues.}
 \usage{
 get_issues_on_backlog(board_id)
 }
@@ -13,7 +13,7 @@ get_issues_on_backlog(board_id)
 dataframe
 }
 \description{
-Title
+Retrieves all the issues that are on a board's backlog.
 }
 \examples{
 NULL

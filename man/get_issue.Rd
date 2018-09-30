@@ -2,7 +2,7 @@
 % Please edit documentation in R/jira_api.R
 \name{get_issue}
 \alias{get_issue}
-\title{Title}
+\title{Get details on a specific issue}
 \usage{
 get_issue(issue_key, full_response = FALSE)
 }
@@ -15,7 +15,7 @@ get_issue(issue_key, full_response = FALSE)
 dataframe
 }
 \description{
-Title
+Using an issue_key, get the full details on an issue.
 }
 \examples{
 NULL

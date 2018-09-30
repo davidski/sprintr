@@ -2,7 +2,7 @@
 % Please edit documentation in R/jira_api.R
 \name{jira_api}
 \alias{jira_api}
-\title{Title}
+\title{Execute a GET request against the Jira API}
 \usage{
 jira_api(path)
 }
@@ -13,7 +13,8 @@ jira_api(path)
 A jira_api object
 }
 \description{
-Title
+Calls bare API end points and returns a wrapped \code{httr} response object
+to a higher level function for presentation.
 }
 \examples{
 NULL

@@ -2,7 +2,7 @@
 % Please edit documentation in R/jira_api.R
 \name{get_board_details}
 \alias{get_board_details}
-\title{Title}
+\title{Get details on a specific board}
 \usage{
 get_board_details(board_id)
 }
@@ -13,7 +13,7 @@ get_board_details(board_id)
 dataframe
 }
 \description{
-Title
+Fetches detailed information on a specific board.
 }
 \examples{
 NULL

@@ -2,7 +2,7 @@
 % Please edit documentation in R/jira_api.R
 \name{get_sprint_report}
 \alias{get_sprint_report}
-\title{Title}
+\title{Get sprint report data}
 \usage{
 get_sprint_report(sprint_id)
 }
@@ -13,7 +13,10 @@ get_sprint_report(sprint_id)
 dataframe
 }
 \description{
-Title
+The Jira sprint report is a useful snapshot of issues completed, not completed,
+and changes to sprint scope. While the web UI does not provide a way to
+export this data in a workable format, the API can be used to get at the
+raw data.
 }
 \examples{
 NULL

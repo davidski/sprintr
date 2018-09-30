@@ -36,7 +36,7 @@ The following environment variables must be set (typically via
 <td>username (ex. <a href="mailto:youraccount@example.com" class="email">youraccount@example.com</a>)</td>
 </tr>
 <tr class="odd">
-<td>JIRA_API_TOKEN</td>
+<td>JIRA_API_KEY</td>
 <td>API token as set via id.atlassian.net</td>
 </tr>
 </tbody>
@@ -48,6 +48,9 @@ Usage
 Full docs are coming…
 
 ``` r
+library(dplyr)
+library(sprintr)
+
 # find the ID of the board of interst
 get_boards()
 
@@ -71,6 +74,15 @@ get_issue("XXX-1234", full_response = TRUE)
 sprint_report_detail <- get_sprint_report_detail(sprint_id = <x>)
 # do ggplot stuff!
 ```
+
+References
+----------
+
+See the Atlassian (Jira
+Cloud)\[<a href="https://developer.atlassian.com/cloud/jira/platform/rest" class="uri">https://developer.atlassian.com/cloud/jira/platform/rest</a>\]
+and (Jira Software
+Cloud)\[<a href="https://docs.atlassian.com/jira-software/REST/cloud" class="uri">https://docs.atlassian.com/jira-software/REST/cloud</a>\]
+docuementation for more information.
 
 Contributing
 ------------

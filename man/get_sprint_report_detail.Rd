@@ -2,7 +2,7 @@
 % Please edit documentation in R/jira_api.R
 \name{get_sprint_report_detail}
 \alias{get_sprint_report_detail}
-\title{Title}
+\title{Get detailed sprint report information.}
 \usage{
 get_sprint_report_detail(sprint_id)
 }
@@ -13,7 +13,9 @@ get_sprint_report_detail(sprint_id)
 A dataframe
 }
 \description{
-Title
+Get the issues associated with each of the major categories in a
+Jira sprint report. Currently retrieves all fields of all issues, which
+can be slow.
 }
 \examples{
 NULL
