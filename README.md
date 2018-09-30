@@ -29,7 +29,7 @@ The following environment variables must be set (typically via
 <tbody>
 <tr class="odd">
 <td>JIRA_API_URL</td>
-<td>endpoint of the Jira API (ex. https//yourdomain.atlassian.net)</td>
+<td>endpoint of the Jira API (ex. <a href="https://yourdomain.atlassian.net" class="uri">https://yourdomain.atlassian.net</a>)</td>
 </tr>
 <tr class="even">
 <td>JIRA_USER</td>
@@ -37,7 +37,7 @@ The following environment variables must be set (typically via
 </tr>
 <tr class="odd">
 <td>JIRA_API_KEY</td>
-<td>API token as set via id.atlassian.net</td>
+<td>API token obtained via <a href="https://id.atlassian.net">id.atlassian.net</a></td>
 </tr>
 </tbody>
 </table>
@@ -48,20 +48,21 @@ Usage
 Full docs are coming…
 
 ``` r
-library(dplyr)
+library(tidyverse)
 library(sprintr)
 
-# find the ID of the board of interst
-get_boards()
+# find the ID of the board of interest
+get_boards() %>% head(1) %>% pull(id) -> my_board
 
 # pull up details on a board
-get_board_details(board_id = <x>)
+get_board_details(board_id = my_board)
 
 # identify the sprint of interest
-get_sprints(board_id = <x>) %>% arrange(desc(endDate))
+get_all_sprints(board_id = my_board) %>% arrange(desc(endDate)) %>% 
+  head(1) %>% pull(id) -> my_sprint
 
 # get a sprint report
-sprint_report <- get_sprint_report(sprint_id = <x>)
+sprint_report <- get_sprint_report(sprint_id = my_sprint)
 # the report has quite a bit of info, for raw story point totals
 sprint_report$points_sum
 
@@ -71,7 +72,7 @@ get_issue(issue_key = "XXX-1234")
 get_issue("XXX-1234", full_response = TRUE)
 
 # the main personal motivation of this package
-sprint_report_detail <- get_sprint_report_detail(sprint_id = <x>)
+sprint_report_detail <- get_sprint_report_detail(sprint_id = my_sprint)
 # do ggplot stuff!
 ```
 
