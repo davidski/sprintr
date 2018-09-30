@@ -106,7 +106,8 @@ get_fields <- function() {
 #' @return dataframe
 #' @export
 #'
-#' @importFrom dplyr bind_cols bind_rows data_frame select
+#' @importFrom dplyr bind_cols bind_rows select
+#' @importFrom tibble tibble
 #' @importFrom purrr pluck
 #' @importFrom rlang .data
 #' @importFrom glue glue
@@ -118,7 +119,7 @@ get_boards <- function() {
                   startAt = 0,
                   maxResults = 0)
 
-  all_boards <- dplyr::data_frame()
+  all_boards <- tibble::tibble()
 
   while (!content$isLast) {
     start_at <- content$startAt + content$maxResults
