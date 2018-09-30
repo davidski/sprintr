@@ -30,7 +30,7 @@ The following environment variables must be set (typically via `.Renviron`)
 |----------|---------|
 | JIRA_API_URL | endpoint of the Jira API (ex. https//yourdomain.atlassian.net) |
 | JIRA_USER | username (ex. youraccount@example.com) |
-| JIRA_API_TOKEN | API token as set via id.atlassian.net |
+| JIRA_API_KEY | API token as set via id.atlassian.net |
 
 ## Usage
 
