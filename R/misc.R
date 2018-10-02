@@ -5,6 +5,7 @@
 #' export this data in a workable format, the API can be used to get at the
 #' raw data.
 #'
+#' @param board_id ID of board
 #' @param sprint_id ID of sprint to retrieve
 #'
 #' @return dataframe
@@ -16,10 +17,10 @@
 #'
 #' @examples
 #' NULL
-get_sprint_report <- function(sprint_id) {
+get_sprint_report <- function(board_id, sprint_id) {
   sprint_report <- jira_api(
     glue::glue("/rest/greenhopper/1.0/rapid/charts/sprintreport?",
-               "rapidViewId=8&sprintId={sprint_id}")) %>%
+               "rapidViewId={board_id}&sprintId={sprint_id}")) %>%
     purrr::pluck("content", "contents")
   discard_list <- names(sprint_report) %>%
     stringr::str_detect(pattern = "Sum")
@@ -28,8 +29,6 @@ get_sprint_report <- function(sprint_id) {
     purrr::map("value") %>% purrr::flatten_df()
   purrr::splice(clean_report, list(points_sum = point_sums))
 }
-
-
 
 #' Get all backloged issues.
 #'

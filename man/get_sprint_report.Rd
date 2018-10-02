@@ -4,9 +4,11 @@
 \alias{get_sprint_report}
 \title{Get sprint report data}
 \usage{
-get_sprint_report(sprint_id)
+get_sprint_report(board_id, sprint_id)
 }
 \arguments{
+\item{board_id}{ID of board}
+
 \item{sprint_id}{ID of sprint to retrieve}
 }
 \value{

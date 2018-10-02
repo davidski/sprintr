@@ -1,5 +1,6 @@
 # sprintr 0.0.0.9000
 
+* `get_sprint_report_detail` takes a board_id and a sprint_id parameter.
 * `get_sprints` renamed to `get_all_sprints`.
 * `get_sprint` introduced to fetch details of a particular sprint.
 * `get_boards` now properly follows pagination (@quartin).

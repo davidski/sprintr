@@ -61,7 +61,7 @@ get_issue(issue_key = "XXX-1234")
 get_issue("XXX-1234", full_response = TRUE)
 
 # the main personal motivation of this package
-sprint_report_detail <- get_sprint_report_detail(sprint_id = my_sprint)
+sprint_report_detail <- get_sprint_report_detail(board_ud = my_board, sprint_id = my_sprint)
 # do ggplot stuff!
 ```
 
