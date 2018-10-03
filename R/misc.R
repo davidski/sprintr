@@ -30,6 +30,42 @@ get_sprint_report <- function(board_id, sprint_id) {
   purrr::splice(clean_report, list(points_sum = point_sums))
 }
 
+#' Get detailed sprint report information.
+#'
+#' Get the issues associated with each of the major categories in a
+#' Jira sprint report. Currently retrieves all fields of all issues, which
+#' can be slow.
+#'
+#' @param board_id ID of board
+#' @param sprint_id ID of the sprint to pull issue-level details on
+#'
+#' @return A dataframe
+#' @export
+#' @importFrom dplyr mutate bind_rows
+#' @importFrom purrr map_dfr
+#'
+#' @examples
+#' NULL
+get_sprint_report_detail <- function(board_id, sprint_id) {
+  sprint_report <- get_sprint_report(board_id = board_id, sprint_id = sprint_id)
+  sprint_report$completedIssues$key %>%
+    purrr::map_dfr(function(x) get_issue(issue_key = x)) %>%
+    dplyr::mutate(type = "completed") -> comp_issues
+  sprint_report$issuesNotCompletedInCurrentSprint$key %>%
+    purrr::map_dfr(function(x) get_issue(issue_key = x)) %>%
+    dplyr::mutate(type = "incomplete") -> incomp_issues
+  sprint_report$puntedIssues$key %>%
+    purrr::map_dfr(function(x) get_issue(issue_key = x)) %>%
+    dplyr::mutate(type = "removed") -> removed_issues
+  sprint_report$issueKeysAddedDuringSprint %>% names() %>%
+    purrr::map_dfr(function(x) get_issue(issue_key = x)) %>%
+    dplyr::mutate(type = "added") -> added_issues
+  sprint_report_detail <- dplyr::bind_rows(comp_issues, incomp_issues,
+                                           removed_issues, added_issues) %>%
+    dplyr::mutate(sprint_id = sprint_id)
+  sprint_report_detail
+}
+
 #' Get all backloged issues.
 #'
 #' Retrieves all the issues that are on a board's backlog.
@@ -55,39 +91,4 @@ get_issues_on_backlog <- function(board_id) {
   }
 
   resp_values
-}
-
-#' Get detailed sprint report information.
-#'
-#' Get the issues associated with each of the major categories in a
-#' Jira sprint report. Currently retrieves all fields of all issues, which
-#' can be slow.
-#'
-#' @param sprint_id ID of the sprint to pull issue-level details on
-#'
-#' @return A dataframe
-#' @export
-#' @importFrom dplyr mutate bind_rows
-#' @importFrom purrr map_dfr
-#'
-#' @examples
-#' NULL
-get_sprint_report_detail <- function(sprint_id) {
-  sprint_report <- get_sprint_report(sprint_id = sprint_id)
-  sprint_report$completedIssues$key %>%
-    purrr::map_dfr(function(x) get_issue(issue_key = x)) %>%
-    dplyr::mutate(type = "completed") -> comp_issues
-  sprint_report$issuesNotCompletedInCurrentSprint$key %>%
-    purrr::map_dfr(function(x) get_issue(issue_key = x)) %>%
-    dplyr::mutate(type = "incomplete") -> incomp_issues
-  sprint_report$puntedIssues$key %>%
-    purrr::map_dfr(function(x) get_issue(issue_key = x)) %>%
-    dplyr::mutate(type = "removed") -> removed_issues
-  sprint_report$issueKeysAddedDuringSprint %>% names() %>%
-    purrr::map_dfr(function(x) get_issue(issue_key = x)) %>%
-    dplyr::mutate(type = "added") -> added_issues
-  sprint_report_detail <- dplyr::bind_rows(comp_issues, incomp_issues,
-                                           removed_issues, added_issues) %>%
-    dplyr::mutate(sprint_id = sprint_id)
-  sprint_report_detail
 }
