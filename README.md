@@ -1,4 +1,5 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 Sprintr
 =======
 
@@ -12,8 +13,8 @@ Installation
 
 `devtools::install_github("davidski/sprintr")`
 
-The following environment variables must be set (typically via
-`.Renviron`)
+Set the base url to your Jira API endpoint via the JIRA\_API\_URL
+environment variable (typically via `.Renviron`).
 
 <table>
 <colgroup>
@@ -31,16 +32,47 @@ The following environment variables must be set (typically via
 <td>JIRA_API_URL</td>
 <td>endpoint of the Jira API (ex. <a href="https://yourdomain.atlassian.net" class="uri">https://yourdomain.atlassian.net</a>)</td>
 </tr>
-<tr class="even">
-<td>JIRA_USER</td>
-<td>username (ex. <a href="mailto:youraccount@example.com" class="email">youraccount@example.com</a>)</td>
-</tr>
-<tr class="odd">
-<td>JIRA_API_KEY</td>
-<td>API token obtained via <a href="https://id.atlassian.net">id.atlassian.net</a></td>
-</tr>
 </tbody>
 </table>
+
+### Atlassian Cloud Authentication
+
+For Atlassian cloud installations, obtain a token via
+[id.atlassian.net](https://id.atlassian.net) and set the `JIRA_API_KEY`
+and `JIRA_USER` environment variables.
+
+| variable              | purpose                                                                                           |
+|-----------------------|---------------------------------------------------------------------------------------------------|
+| JIRA\_API\_KEY        | API token obtained via [id.atlassian.net](https://id.atlassian.net)                               |
+| JIRA\_USER            | username (ex. <a href="mailto:youraccount@example.com" class="email">youraccount@example.com</a>) |
+| JIRA\_SESSION\_COOKIE | Session authentication cookie                                                                     |
+
+### Jira Server Authentication
+
+While much of the Jira Server API is the same as the cloud endpoints,
+I’ve enountered many differences in practice and have not attempted to
+support them here in **sprintr**. If you wish to explore on your own
+(`jira_api()` and `jira_api_post()` both support making raw calls to the
+API) then proceed with the following kludgey process to authenticate.
+
+The **insecure** and **temporary** steps for authenticating to Jira
+Server are:
+
+1.  Visit the `/rest/auth/1/session` endpoint and authenticate with
+    basic auth.
+    (e.g. `curl -v --user YOURUID https://jira.yourdomain.tld/rest/auth1/session`)
+2.  Copy out the JSESSIONID cookie value.
+3.  Set an environment variable `JIRA_SESSION_COOKIE` to the value of
+    the JSESSION cookie, taking care to omit the `=` and the `;` that
+    mark the respective start and stop of the cookie value.
+
+Session cookies will be preferred over API tokens, if available. Again,
+this is a very kludgey work around for Jira Servers which do not support
+OAuth.
+
+| variable              | purpose                       |
+|-----------------------|-------------------------------|
+| JIRA\_SESSION\_COOKIE | Session authentication cookie |
 
 Usage
 -----
@@ -72,7 +104,7 @@ get_issue(issue_key = "XXX-1234")
 get_issue("XXX-1234", full_response = TRUE)
 
 # the main personal motivation of this package
-sprint_report_detail <- get_sprint_report_detail(board_ud = my_board, sprint_id = my_sprint)
+sprint_report_detail <- get_sprint_report_detail(board_id = my_board, sprint_id = my_sprint)
 # do ggplot stuff!
 ```
 

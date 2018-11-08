@@ -4,9 +4,11 @@
 \alias{get_sprint_report_detail}
 \title{Get detailed sprint report information.}
 \usage{
-get_sprint_report_detail(sprint_id)
+get_sprint_report_detail(board_id, sprint_id)
 }
 \arguments{
+\item{board_id}{ID of board}
+
 \item{sprint_id}{ID of the sprint to pull issue-level details on}
 }
 \value{

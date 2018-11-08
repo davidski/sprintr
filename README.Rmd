@@ -24,13 +24,48 @@ and velocity information. Bring the power of #rstats to your sprint reporting!
 
 `devtools::install_github("davidski/sprintr")`
 
-The following environment variables must be set (typically via `.Renviron`)
+Set the base url to your Jira API endpoint via the JIRA_API_URL environment 
+variable (typically via `.Renviron`).
 
 | variable | purpose |
 |----------|---------|
 | JIRA_API_URL | endpoint of the Jira API (ex. https://yourdomain.atlassian.net) |
-| JIRA_USER | username (ex. youraccount@example.com) |
+
+### Atlassian Cloud Authentication
+
+For Atlassian cloud installations, obtain a token via 
+[id.atlassian.net](https://id.atlassian.net) and set the `JIRA_API_KEY` and 
+`JIRA_USER` environment variables. 
+
+| variable | purpose |
+|----------|---------|
 | JIRA_API_KEY | API token obtained via [id.atlassian.net](https://id.atlassian.net) |
+| JIRA_USER | username (ex. youraccount@example.com) |
+| JIRA_SESSION_COOKIE | Session authentication cookie
+
+### Jira Server Authentication
+
+While much of the Jira Server API is the same as the cloud endpoints, I've 
+enountered many differences in practice and have not attempted to support them 
+here in **sprintr**. If you wish to explore on your own (`jira_api()` 
+and `jira_api_post()` both support making raw calls to the API) then proceed 
+with the following kludgey  process to authenticate.
+
+The **insecure** and **temporary** steps for authenticating to Jira Server are:
+
+  1. Visit the `/rest/auth/1/session` endpoint and authenticate with basic 
+  auth. (e.g. `curl -v --user YOURUID https://jira.yourdomain.tld/rest/auth1/session`)
+  2. Copy out the JSESSIONID cookie value.
+  3. Set an environment variable `JIRA_SESSION_COOKIE` to the value of the 
+  JSESSION cookie, taking care to omit the `=` and the `;` that mark the respective 
+  start and stop of the cookie value.
+  
+Session cookies will be preferred over API tokens, if available. Again, this is 
+a very kludgey work around for Jira Servers which do not support OAuth.
+  
+| variable | purpose |
+|----------|---------|
+| JIRA_SESSION_COOKIE | Session authentication cookie
 
 ## Usage
 
@@ -61,7 +96,7 @@ get_issue(issue_key = "XXX-1234")
 get_issue("XXX-1234", full_response = TRUE)
 
 # the main personal motivation of this package
-sprint_report_detail <- get_sprint_report_detail(board_ud = my_board, sprint_id = my_sprint)
+sprint_report_detail <- get_sprint_report_detail(board_id = my_board, sprint_id = my_sprint)
 # do ggplot stuff!
 ```
 
