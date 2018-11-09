@@ -1,6 +1,6 @@
 Package: sprintr
 Title: Light weight interface to the Atlassian Jira API
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: c(
     person("David", "Severski", email = "davidski@deadheaven.com", role = c("cre", "aut"), comment = "https://orcid.org/0000-0001-7867-0459"),
     person("Susana", "Quartin", email = "susanaquartin@gmail.com", role = c("ctb")))
