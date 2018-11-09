@@ -83,6 +83,9 @@ Full docs are coming…
 library(tidyverse)
 library(sprintr)
 
+# find the Story Point field identifier for your environment
+find_story_point_mapping()
+
 # find the ID of the board of interest
 get_boards() %>% head(1) %>% pull(id) -> my_board
 

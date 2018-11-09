@@ -30,6 +30,12 @@ jira_authtype <- function() {
   if (!is.na(cookie_auth)) {return("cookie")} else {return("token")}
 }
 
+# default variables
+# thanks to http://www.exegetic.biz/blog/2017/09/global-variables-r-packages/
+pkg.globals <- new.env()
+pkg.globals$story_points <- "customfield_10013"
+pkg.globals$program      <- "customfield_10500"
+
 #' Execute a GET request against the Jira API
 #'
 #' Calls bare API end points and returns a wrapped `httr` response object

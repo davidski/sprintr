@@ -1,3 +1,8 @@
+# sprintr 0.1.0.9000
+
+* Use package globals to configure commonly used custom fields
+* `find_story_point_mapping()` detects the customfield id for story point fields
+
 # sprintr 0.1.0
 
 * Internal functions for working with `sprintr` environment variables can now 
