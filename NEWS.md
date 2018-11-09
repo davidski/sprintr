@@ -2,6 +2,10 @@
 
 * Use package globals to configure commonly used custom fields
 * `find_story_point_mapping()` detects the customfield id for story point fields
+* Use the V2 API whenever possible over the V3 calls. V3 of the Jira API is not 
+  available for on prem deployments and is still beta even for cloud environments.
+* Bug fix - `jira_api_post()` calls were broken. :(
+
 
 # sprintr 0.1.0
 
