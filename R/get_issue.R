@@ -31,10 +31,10 @@ get_issue <- function(issue_key, fields = NULL, full_response = FALSE) {
       key = issue_key,
       story_points = purrr::pluck(resp, pkg.globals$story_points,
                                   .default = NA_integer_),
-      epic_name = purrr::pluck(resp, "epic", "name",
-                               .default = NA_character_),
+      epic_name = purrr::pluck(resp, "epic", "name", .default = NA_character_),
       program = purrr::pluck(resp, pkg.globals$program, "value",
-                             .default = NA_character_)
+                             .default = NA_character_),
+      status = purrr::pluck(resp, "status", "name", .default = NA_character_)
     )
   } else {
     resp
@@ -57,11 +57,11 @@ get_issue <- function(issue_key, fields = NULL, full_response = FALSE) {
 parse_issue <- function(response) {
   tibble::tibble(
     key = "DUMMY",
-    story_points = purrr::pluck(response, "customfield_10013",
+    story_points = purrr::pluck(response, pkg.globals$story_points,
                                 .default = NA_integer_),
     epic_name = purrr::pluck(response, "epic", "name",
                              .default = NA_character_),
-    program = purrr::pluck(response, "customfield_10500", "value",
+    program = purrr::pluck(response, pkg.globals$program, "value",
                            .default = NA_character_)
   )
 }
