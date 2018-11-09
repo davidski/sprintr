@@ -14,7 +14,7 @@
 #' @examples
 #' NULL
 get_fields <- function() {
-  all_fields <- jira_api("/rest/api/3/field")$content
+  all_fields <- jira_api("/rest/api/2/field")$content
   dplyr::bind_cols(dplyr::select(all_fields, -.data$schema),
                    purrr::pluck(all_fields, "schema"))
 }
