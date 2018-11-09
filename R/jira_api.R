@@ -101,8 +101,7 @@ jira_api_post <- function(path, post_data) {
   } else {
     params <- c(params, httr::authenticate(jira_username(), jira_token()))
   }
-  resp <- httr::POST(url, httr::accept_json(), params(), body = post_data,
-                     encode = "json")
+  resp <- httr::POST(url, params, body = post_data, encode = "json")
   if (httr::http_type(resp) != "application/json") {
     stop("API did not return json", call. = FALSE)
   }
