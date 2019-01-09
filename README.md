@@ -41,38 +41,47 @@ For Atlassian cloud installations, obtain a token via
 [id.atlassian.net](https://id.atlassian.net) and set the `JIRA_API_KEY`
 and `JIRA_USER` environment variables.
 
-| variable              | purpose                                                                                           |
-|-----------------------|---------------------------------------------------------------------------------------------------|
-| JIRA\_API\_KEY        | API token obtained via [id.atlassian.net](https://id.atlassian.net)                               |
-| JIRA\_USER            | username (ex. <a href="mailto:youraccount@example.com" class="email">youraccount@example.com</a>) |
-| JIRA\_SESSION\_COOKIE | Session authentication cookie                                                                     |
+| variable       | purpose                                                                                           |
+|----------------|---------------------------------------------------------------------------------------------------|
+| JIRA\_API\_KEY | API token obtained via [id.atlassian.net](https://id.atlassian.net)                               |
+| JIRA\_USER     | username (ex. <a href="mailto:youraccount@example.com" class="email">youraccount@example.com</a>) |
 
 ### Jira Server Authentication
 
-While much of the Jira Server API is the same as the cloud endpoints,
-I’ve enountered many differences in practice and have not attempted to
-support them here in **sprintr**. If you wish to explore on your own
-(`jira_api()` and `jira_api_post()` both support making raw calls to the
-API) then proceed with the following kludgey process to authenticate.
+My available versions of Jira Server do not support the same API as Jira
+Cloud. While **sprintr** aims for the lowest common denominator, there
+may be unexpected differences when operating on a Jira Server endpoint.
+Bug reports and PRs are very welcome!
 
-The **insecure** and **temporary** steps for authenticating to Jira
-Server are:
+To authenticate to Jira Server, you can use either use basic
+authentication or OAuth1.0 authentication. Basic authentication, while
+simpler, is **not recommended** and is provided only for local testing.
+Basic authentication will send your credentials unencrypted (apart from
+any HTTPS in use) across the network.
 
-1.  Visit the `/rest/auth/1/session` endpoint and authenticate with
-    basic auth.
-    (e.g. `curl -v --user YOURUID https://jira.yourdomain.tld/rest/auth1/session`)
-2.  Copy out the JSESSIONID cookie value.
-3.  Set an environment variable `JIRA_SESSION_COOKIE` to the value of
-    the JSESSION cookie, taking care to omit the `=` and the `;` that
-    mark the respective start and stop of the cookie value.
+#### Basic Authentication
 
-Session cookies will be preferred over API tokens, if available. Again,
-this is a very kludgey work around for Jira Servers which do not support
-OAuth.
+| variable    | purpose                                                                                           |
+|-------------|---------------------------------------------------------------------------------------------------|
+| JIRA\_USER  | username (ex. <a href="mailto:youraccount@example.com" class="email">youraccount@example.com</a>) |
+| JIRA\_TOKEN | password                                                                                          |
 
-| variable              | purpose                       |
-|-----------------------|-------------------------------|
-| JIRA\_SESSION\_COOKIE | Session authentication cookie |
+#### OAuth1.0 Authentication
+
+Jira’s server edition uses signed Oauth 1.0 authentication. You, or your
+Jira server administrator, will need to create an Oauth endpoint. This
+endpoint should specify a return url of `http://localhost:1410`. As part
+of the setup process, your administrator will generate an OAuth consumer
+secret (short text string), a shared secret (short text string), and a
+private key (a long PEM-formatted key). The private key should be stored
+in a secure location on your installation of sprintr. Configure the
+following environment variables:
+
+| variable              | purpose                                |
+|-----------------------|----------------------------------------|
+| JIRA\_USER            | OAuth Consumer Secret                  |
+| JIRA\_API\_KEY        | Oauth Shared Secret                    |
+| JIRA\_OAUTH\_SSL\_KEY | full path to a PEM encoded private key |
 
 Usage
 -----

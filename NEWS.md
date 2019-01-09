@@ -1,10 +1,18 @@
-# sprintr 0.1.0.9000
+# sprintr 0.1.1.9000
 
+* TBD
+
+# sprintr 0.1.1
+
+* NEW FEATURE - Initial Oauth1.0 support - clunky, but functional.
 * Use package globals to configure commonly used custom fields
 * `find_story_point_mapping()` detects the customfield id for story point fields
 * Use the V2 API whenever possible over the V3 calls. V3 of the Jira API is not 
   available for on prem deployments and is still beta even for cloud environments.
 * Bug fix - `jira_api_post()` calls were broken. :(
+* Bug fix - `get_board_details()` was calling the sprint details endpoint accidentally.
+* Remove support for the JSESSION_ID hack and document that JIRA_USER and 
+  JIRA_TOKEN can be (mis)used to perform basic authentication.
 
 
 # sprintr 0.1.0

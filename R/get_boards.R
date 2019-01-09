@@ -6,7 +6,7 @@
 #' @return dataframe
 #' @export
 #'
-#' @importFrom dplyr bind_cols bind_rows select
+#' @importFrom dplyr bind_rows select
 #' @importFrom tibble tibble
 #' @importFrom purrr pluck
 #' @importFrom rlang .data
@@ -29,10 +29,8 @@ get_boards <- function() {
     content <- jira_api(url) %>%
       purrr::pluck("content")
 
-    values <- purrr::pluck(content, "values")
-
-    boards <- dplyr::bind_cols(dplyr::select(values, -.data$location),
-                               purrr::pluck(values, "location"))
+    boards <- purrr::pluck(content, "values") %>%
+      dplyr::select(.data$id, .data$self, .data$name, .data$type)
 
     all_boards <- dplyr::bind_rows(all_boards, boards)
   }
@@ -55,6 +53,6 @@ get_boards <- function() {
 #' @examples
 #' NULL
 get_board_details <- function(board_id) {
-  jira_api(glue::glue("/rest/agile/1.0/sprint/{board_id}")) %>%
+  jira_api(glue::glue("/rest/agile/1.0/board/{board_id}")) %>%
     purrr::pluck("content") %>% tibble::as.tibble()
 }
