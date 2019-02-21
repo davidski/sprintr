@@ -43,7 +43,7 @@ get_issue <- function(issue_key, fields = NULL, full_response = FALSE) {
 
 #' Parse an issue.
 #'
-#' EXPERIMENTAL: Parse an issue reponse into a dataframe.
+#' EXPERIMENTAL: Parse an issue response into a dataframe.
 #'
 #' @param response HTTR response
 #'

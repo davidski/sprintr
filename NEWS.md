@@ -1,6 +1,10 @@
 # sprintr 0.1.1.9000
 
-* TBD
+## New Features
+
+* `get_epic()` retrieves summary information on a specific epic ID.
+* `get_epics()` retrieves summary information for all epics under a certain board ID.
+* `get_issues_by_epic()` retrieves all issues for a specific epic.
 
 # sprintr 0.1.1
 

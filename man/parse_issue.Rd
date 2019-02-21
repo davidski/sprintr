@@ -13,7 +13,7 @@ parse_issue(response)
 dataframe
 }
 \description{
-EXPERIMENTAL: Parse an issue reponse into a dataframe.
+EXPERIMENTAL: Parse an issue response into a dataframe.
 }
 \examples{
 NULL
