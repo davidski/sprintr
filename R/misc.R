@@ -71,16 +71,18 @@ get_sprint_report_detail <- function(board_id, sprint_id) {
 #' Retrieves all the issues that are on a board's backlog.
 #'
 #' @param board_id ID of board to retrieve
+#' @param jql Atlassian JQL through which results should be filtered
 #'
 #' @return dataframe
 #' @export
 #'
 #' @examples
 #' NULL
-get_issues_on_backlog <- function(board_id) {
+get_issues_on_backlog <- function(board_id, jql = NULL) {
   start_at <- 0
   resp <- jira_api(glue::glue("/rest/agile/1.0/board/{board_id}/backlog",
-                              "?startAt={start_at}"))
+                              "?startAt={start_at}"),
+                   query = list("jql" = jql))
   resp_values <- resp %>% purrr::pluck("content", "issues", "fields")
   while (resp$content$startAt + resp$content$maxResults < resp$content$total) {
     start_at <- start_at + 50

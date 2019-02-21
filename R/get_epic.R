@@ -74,6 +74,7 @@ get_epic <- function(epic_key) {
 #' With a given epic key, find all of the associated issues.
 #'
 #' @param epic_key Key of issue to retrieve
+#' @param jql Atlassian JQL through which to filter results
 #'
 #' @importFrom tibble tibble
 #' @importFrom dplyr bind_cols
@@ -88,8 +89,9 @@ get_epic <- function(epic_key) {
 #' get_issues_by_epic("XXX-1234")
 #'
 #' }
-get_issues_by_epic <- function(epic_key) {
-  resp <- jira_api(glue::glue("/rest/agile/1.0/epic/{epic_key}/issue")) %>%
+get_issues_by_epic <- function(epic_key, jql = NULL) {
+  resp <- jira_api(glue::glue("/rest/agile/1.0/epic/{epic_key}/issue"),
+                   query = list("jql" = jql)) %>%
     purrr::pluck("content", "issues")
   if (is.null(resp)) {
     tibble::tibble()
@@ -103,7 +105,7 @@ get_issues_by_epic <- function(epic_key) {
                                .default = NA_character_),
         status = purrr::pluck(resp, "fields", "status", "name", .default = NA_character_)
       )
-    dplyr::bind_cols(tibble::tibble(issue_key = resp$key), issue_details)
+    dplyr::bind_cols(tibble::tibble(epic_key = epic_key, issue_key = resp$key), issue_details)
   }
 }
 

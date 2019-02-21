@@ -4,10 +4,12 @@
 \alias{get_issues_by_epic}
 \title{Get all issues associated with a given epic}
 \usage{
-get_issues_by_epic(epic_key)
+get_issues_by_epic(epic_key, jql = NULL)
 }
 \arguments{
 \item{epic_key}{Key of issue to retrieve}
+
+\item{jql}{Atlassian JQL through which to filter results}
 }
 \value{
 A tibble.

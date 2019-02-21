@@ -1,10 +1,11 @@
-# sprintr 0.1.1.9000
+# sprintr 0.1.2
 
 ## New Features
 
 * `get_epic()` retrieves summary information on a specific epic ID.
 * `get_epics()` retrieves summary information for all epics under a certain board ID.
 * `get_issues_by_epic()` retrieves all issues for a specific epic.
+* `get_issues_on_backlog()` can take an optional JQL string through which results are filtered.
 
 # sprintr 0.1.1
 

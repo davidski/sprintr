@@ -4,10 +4,12 @@
 \alias{get_issues_on_backlog}
 \title{Get all backlogged issues.}
 \usage{
-get_issues_on_backlog(board_id)
+get_issues_on_backlog(board_id, jql = NULL)
 }
 \arguments{
 \item{board_id}{ID of board to retrieve}
+
+\item{jql}{Atlassian JQL through which results should be filtered}
 }
 \value{
 dataframe
