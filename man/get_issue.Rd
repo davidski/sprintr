@@ -9,7 +9,7 @@ get_issue(issue_key, fields = NULL, full_response = FALSE)
 \arguments{
 \item{issue_key}{Key of issue to retrieve}
 
-\item{fields}{Comma seperated string of field IDs to retrieve}
+\item{fields}{Comma separated string of field IDs to retrieve}
 
 \item{full_response}{Return raw list of fields}
 }
@@ -19,7 +19,7 @@ A tibble if neither \code{fields} nor \code{full_response} are specified, otherw
 \description{
 Using an issue_key, get the full details on an issue. Defaults to returning a
 minimal set of fields as a dataframe, but may also be used to retrieve any
-or al available fields.
+or all available fields.
 }
 \examples{
 \dontrun{

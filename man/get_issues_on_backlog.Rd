@@ -2,7 +2,7 @@
 % Please edit documentation in R/misc.R
 \name{get_issues_on_backlog}
 \alias{get_issues_on_backlog}
-\title{Get all backloged issues.}
+\title{Get all backlogged issues.}
 \usage{
 get_issues_on_backlog(board_id)
 }

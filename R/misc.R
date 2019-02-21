@@ -66,7 +66,7 @@ get_sprint_report_detail <- function(board_id, sprint_id) {
   sprint_report_detail
 }
 
-#' Get all backloged issues.
+#' Get all backlogged issues.
 #'
 #' Retrieves all the issues that are on a board's backlog.
 #'

@@ -2,10 +2,10 @@
 #'
 #' Using an issue_key, get the full details on an issue. Defaults to returning a
 #' minimal set of fields as a dataframe, but may also be used to retrieve any
-#' or al available fields.
+#' or all available fields.
 #'
 #' @param issue_key Key of issue to retrieve
-#' @param fields Comma seperated string of field IDs to retrieve
+#' @param fields Comma separated string of field IDs to retrieve
 #' @param full_response Return raw list of fields
 #'
 #' @return A tibble if neither `fields` nor `full_response` are specified, otherwise a list

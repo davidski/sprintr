@@ -4,7 +4,7 @@ Sprintr
 =======
 
 **sprintr** is a minimal R wrapper of the Jira and Jira Software REST
-APIs. Convienience functions with object parsing are available for
+APIs. Convenience functions with object parsing are available for
 retrieving sprint and velocity information. Bring the power of \#rstats
 to your sprint reporting!
 
@@ -68,8 +68,8 @@ any HTTPS in use) across the network.
 
 #### OAuth1.0 Authentication
 
-Jira’s server edition uses signed Oauth 1.0 authentication. You, or your
-Jira server administrator, will need to create an Oauth endpoint. This
+Jira’s server edition uses signed OAuth 1.0 authentication. You, or your
+Jira server administrator, will need to create an OAuth endpoint. This
 endpoint should specify a return url of `http://localhost:1410`. As part
 of the setup process, your administrator will generate an OAuth consumer
 secret (short text string), a shared secret (short text string), and a
@@ -115,6 +115,9 @@ get_issue(issue_key = "XXX-1234")
 # or see all the fields on that issue
 get_issue("XXX-1234", full_response = TRUE)
 
+# find all the epics associated with a board
+get_epics(board_id = my_board)
+
 # the main personal motivation of this package
 sprint_report_detail <- get_sprint_report_detail(board_id = my_board, sprint_id = my_sprint)
 # do ggplot stuff!
@@ -127,7 +130,7 @@ See the Atlassian [Jira
 Cloud](https://developer.atlassian.com/cloud/jira/platform/rest) and
 [Jira Software
 Cloud](https://docs.atlassian.com/jira-software/REST/cloud)
-docuementation for more information.
+documentation for more information.
 
 Contributing
 ------------

@@ -26,3 +26,6 @@ Imports:
     stringr,
     tibble,
     openssl
+Suggests:
+    spelling
+Language: en-US
