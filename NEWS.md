@@ -1,3 +1,11 @@
+# sprintr 0.1.2.900
+
+## New Features
+
+* `get_sprint()` now returns a tibble instead of a data.frame, consistent 
+with other functions
+* `get_issue()` returns the issue summary and description
+
 # sprintr 0.1.2
 
 ## New Features
