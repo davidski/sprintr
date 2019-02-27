@@ -30,9 +30,11 @@ get_sprint <- function(sprint_id) {
 #' @return dataframe
 #' @export
 #'
-#' @importFrom dplyr bind_rows
+#' @importFrom tibble as_tibble
+#' @importFrom dplyr bind_rows mutate_at vars
 #' @importFrom glue glue
 #' @importFrom purrr pluck
+#' @importFrom anytime anydate
 #'
 #' @examples
 #' NULL
@@ -40,7 +42,8 @@ get_all_sprints <- function(board_id) {
   start_at <- 0
   resp <- jira_api(glue::glue("/rest/agile/1.0/board/{board_id}/sprint?",
                               "startAt={start_at}&maxResults=50"))
-  resp_values <- resp %>% purrr::pluck("content", "values")
+  resp_values <- resp %>% purrr::pluck("content", "values") %>%
+    tibble::as_tibble()
   #browser()
   while (!is.null(resp$content$isLast) && resp$content$isLast == FALSE) {
     start_at <- start_at + 50
@@ -50,5 +53,6 @@ get_all_sprints <- function(board_id) {
                                     purrr::pluck(resp, "content", "values"))
 
   }
-  resp_values
+  dplyr::mutate_at(resp_values,
+                   .vars = dplyr::vars(contains("Date")), anytime::anydate)
 }
