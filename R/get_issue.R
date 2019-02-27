@@ -29,6 +29,8 @@ get_issue <- function(issue_key, fields = NULL, full_response = FALSE) {
   if (is.null(fields) && !full_response) {
     tibble::tibble(
       key = issue_key,
+      summary = purrr::pluck(resp, "summary", .default = NA_character_),
+      description = purrr::pluck(resp, "description", .default = NA_character_),
       story_points = purrr::pluck(resp, pkg.globals$story_points,
                                   .default = NA_integer_),
       epic_name = purrr::pluck(resp, "epic", "name", .default = NA_character_),
