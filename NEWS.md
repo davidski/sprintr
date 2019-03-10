@@ -4,7 +4,8 @@
 
 * `get_sprint()` now returns a tibble instead of a data.frame, consistent 
 with other functions
-* `get_issue()` returns the issue summary and description
+* `get_issue()` returns the issue summary, description, and resolution
+
 
 # sprintr 0.1.2
 

@@ -36,7 +36,8 @@ get_issue <- function(issue_key, fields = NULL, full_response = FALSE) {
       epic_name = purrr::pluck(resp, "epic", "name", .default = NA_character_),
       program = purrr::pluck(resp, pkg.globals$program, "value",
                              .default = NA_character_),
-      status = purrr::pluck(resp, "status", "name", .default = NA_character_)
+      status = purrr::pluck(resp, "status", "name", .default = NA_character_),
+      resolution = purrr::pluck(resp, "resolution", "name", .default = NA_character_),
     )
   } else {
     resp
