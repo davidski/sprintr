@@ -44,7 +44,7 @@ get_all_sprints <- function(board_id) {
                               "startAt={start_at}&maxResults=50"))
   resp_values <- resp %>% purrr::pluck("content", "values") %>%
     tibble::as_tibble()
-  #browser()
+
   while (!is.null(resp$content$isLast) && resp$content$isLast == FALSE) {
     start_at <- start_at + 50
     resp <- jira_api(glue::glue("/rest/agile/1.0/board/{board_id}/sprint?",
