@@ -31,10 +31,10 @@ get_sprint <- function(sprint_id) {
 #' @export
 #'
 #' @importFrom tibble as_tibble
-#' @importFrom dplyr bind_rows mutate_at vars
+#' @importFrom dplyr bind_rows mutate_at vars contains
 #' @importFrom glue glue
 #' @importFrom purrr pluck
-#' @importFrom anytime anydate
+#' @importFrom lubridate as_date
 #'
 #' @examples
 #' NULL
@@ -54,5 +54,6 @@ get_all_sprints <- function(board_id) {
 
   }
   dplyr::mutate_at(resp_values,
-                   .vars = dplyr::vars(contains("Date")), anytime::anydate)
+                   .vars = dplyr::vars(dplyr::contains("Date")), lubridate::as_date)
 }
+
