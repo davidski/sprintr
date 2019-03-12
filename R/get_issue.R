@@ -23,6 +23,12 @@
 #' get_issue("XXX-1234", full_response = TRUE)
 #' }
 get_issue <- function(issue_key, fields = NULL, full_response = FALSE) {
+  if (!getOption("sprintr_storypoint_remapped", FALSE)) {
+    warning("Story Point mapping has not been refreshed this session. Autorefreshing.\n",
+            'Disable this behavior by setting `option("sprintr_storypoint_remapping")` to TRUE.\n',
+            call. = FALSE, immediate. = TRUE)
+    find_story_point_mapping()
+  }
   resp <- jira_api(glue::glue("/rest/agile/1.0/issue/{issue_key}"),
                    query = list(fields = fields)) %>%
     purrr::pluck("content", "fields")
