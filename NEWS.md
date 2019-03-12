@@ -5,15 +5,15 @@
 * `get_sprint()` now returns a tibble instead of a data.frame, consistent 
 with other functions
 * `get_issue()` returns also returns the issue summary, description, and resolution
-* `get_issue()` checks if the story point mapping has been refreshed in the 
-current session and will auto refresh if necessary. This behavior can be 
-disabled by setting the option "sprintr_storypoint_mapping" to TRUE.
+* `get_issue()` and `get_issues_by_epic()` both check if the story point 
+mapping has been refreshed in the current session and will auto refresh if 
+necessary. This behavior can be disabled by setting the option 
+"sprintr_storypoint_mapping" to TRUE.
 
 ## Bug Fixes
 
-* Convert from `anytime::anydate()` to `lubridate::as_date()` to avoid UTC 
+* Switch from using `anytime::anydate()` to `lubridate::as_date()` to avoid UTC 
 parsing problems with ISO8601 datetimes in issue responses.
-
 
 # sprintr 0.1.2
 

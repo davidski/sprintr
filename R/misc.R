@@ -94,3 +94,16 @@ get_issues_on_backlog <- function(board_id, jql = NULL) {
 
   resp_values
 }
+
+#' Check if storypoint mapping is current
+#'
+#' @return NULL
+#'
+check_storypoint_mapping <- function() {
+  if (!getOption("sprintr_storypoint_remapped", FALSE)) {
+  warning("Story Point mapping has not been refreshed this session. Autorefreshing.\n",
+          'Disable this behavior by setting `option("sprintr_storypoint_remapping")` to TRUE.\n',
+          call. = FALSE, immediate. = TRUE)
+  find_story_point_mapping()
+  }
+}

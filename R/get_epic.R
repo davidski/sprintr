@@ -90,6 +90,7 @@ get_epic <- function(epic_key) {
 #'
 #' }
 get_issues_by_epic <- function(epic_key, jql = NULL) {
+  check_storypoint_mapping()
   resp <- jira_api(glue::glue("/rest/agile/1.0/epic/{epic_key}/issue"),
                    query = list("jql" = jql)) %>%
     purrr::pluck("content", "issues")
