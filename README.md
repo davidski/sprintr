@@ -61,10 +61,10 @@ any HTTPS in use) across the network.
 
 #### Basic Authentication
 
-| variable    | purpose                                                                                           |
-|-------------|---------------------------------------------------------------------------------------------------|
-| JIRA\_USER  | username (ex. <a href="mailto:youraccount@example.com" class="email">youraccount@example.com</a>) |
-| JIRA\_TOKEN | password                                                                                          |
+| variable       | purpose                                                                                           |
+|----------------|---------------------------------------------------------------------------------------------------|
+| JIRA\_USER     | username (ex. <a href="mailto:youraccount@example.com" class="email">youraccount@example.com</a>) |
+| JIRA\_API\_KEY | password                                                                                          |
 
 #### OAuth1.0 Authentication
 
@@ -80,7 +80,7 @@ following environment variables:
 | variable              | purpose                                |
 |-----------------------|----------------------------------------|
 | JIRA\_USER            | OAuth Consumer Secret                  |
-| JIRA\_API\_KEY        | Oauth Shared Secret                    |
+| JIRA\_API\_KEY        | OAuth Shared Secret                    |
 | JIRA\_OAUTH\_SSL\_KEY | full path to a PEM encoded private key |
 
 Usage

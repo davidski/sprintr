@@ -59,7 +59,7 @@ credentials unencrypted (apart from any HTTPS in use) across the network.
 | variable | purpose |
 |----------|---------|
 | JIRA_USER | username (ex. youraccount@example.com) |
-| JIRA_TOKEN | password |
+| JIRA_API_KEY | password |
 
 #### OAuth1.0 Authentication
 
@@ -74,7 +74,7 @@ sprintr. Configure the following environment variables:
 | variable | purpose |
 |----------|---------|
 | JIRA_USER | OAuth Consumer Secret |
-| JIRA_API_KEY | Oauth Shared Secret |
+| JIRA_API_KEY | OAuth Shared Secret |
 | JIRA_OAUTH_SSL_KEY | full path to a PEM encoded private key |
 
 ## Usage
